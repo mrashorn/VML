@@ -14,15 +14,26 @@ class VehicleMaintenanceLog:
 
     def run_vml(self):
         """Main loop of the VML."""
-        print("We are in the main loop of the VML.\n")
-        print("Let's add a vehicle.\n")
-        self._add_vehicle()
+        ans = input("Do you want to add a vehicle?[y\\n]\n")
+        while ans == 'y':
+            print("Let's add a vehicle.\n")
+            self._add_vehicle()
+            ans = input("Do you want to add a vehicle?[y\\n]\n")
 
+        print("\nHere are the current logged vehicles:\n")
+        self._list_vehicles()
 
     def _add_vehicle(self):
         """Add a new vehicle to the VML."""
         new_vehicle = Vehicle()
-        print(f"Our new vehicle is a {new_vehicle.make} {new_vehicle.model}!")
+        print(f"Our new vehicle is a {new_vehicle.year} {new_vehicle.make} {new_vehicle.model}!")
+        self.vehicles.append(new_vehicle)
+
+
+    def _list_vehicles(self):
+        """Prints the list of vehicles in the VML to the user."""
+        for vehicle in self.vehicles:
+            vehicle.print_name()
 
 
 
