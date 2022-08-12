@@ -12,8 +12,9 @@ class Vehicle:
         self.make = input("What is the vehicle's make?: ")
         self.model = input("What is the vehicle's model?: ")
         self.year = input("What is the vehicle's year?: ")
+        self.miles = int(input("How many miles does this vehicle have?: "))
 
 
     def print_name(self):
         """Prints the vehicles common name."""
-        print(f"{self.year} {self.make} {self.model}\n")
+        print(f"{self.year} {self.make} {self.model} with {self.miles} miles.\n")
