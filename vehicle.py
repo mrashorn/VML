@@ -1,3 +1,4 @@
+import json 
 
 class Vehicle:
     """A class representing any given vehicle."""
@@ -18,3 +19,15 @@ class Vehicle:
     def print_name(self):
         """Prints the vehicles common name."""
         print(f"{self.year} {self.make} {self.model} with {self.miles} miles.\n")
+
+
+    def save_data(self):
+        """Saves the vehicle's data to a json file."""
+        vehicle_file_name = f"{self.year}_{self.make}_{self.model}.json"
+        vehicle_file = open(f"vehicle_data/{vehicle_file_name}", 'w')
+        json.dump(self.__dict__, vehicle_file)
+        vehicle_file.close()
+
+        
+
+

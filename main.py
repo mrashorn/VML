@@ -18,21 +18,23 @@ class VehicleMaintenanceLog:
         """Main loop of the VML."""
         while True:
             selection = self._display_main_menu()
+            self._route_to_next(selection)
 
 
     def _add_vehicles_loop(self):
         """Prompt the user to add multiple vehicles to the VML."""
-        ans = input("Do you want to add a vehicle?[y\\n]\n")
+        ans = 'y'
         while ans == 'y':
             print("Let's add a vehicle.\n")
             self._add_vehicle()
-            ans = input("Do you want to add a vehicle?[y\\n]\n")
+            ans = input("Do you want to add another vehicle?[y\\n]: ")
 
 
     def _add_vehicle(self):
         """Add a new vehicle to the VML."""
         new_vehicle = Vehicle()
-        print(f"Our new vehicle is a {new_vehicle.year} {new_vehicle.make} {new_vehicle.model}!")
+        print(f"Added the {new_vehicle.make} {new_vehicle.model}.")
+        new_vehicle.save_data()
         self.vehicles.append(new_vehicle)
 
 
@@ -51,13 +53,27 @@ class VehicleMaintenanceLog:
         """Display the main options for the VML."""
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
+        print("q to quit.")
 
         ans = input("\nMake a selection and press Enter: ")
+        if ans == 'q':
+            sys.exit()
         if int(ans) > len(self.main_menu_options):
             print("\nNot a valid selection.\n")
             return None
+            
+        return int(ans)
 
-        return ans
+
+    def _route_to_next(self, selection):
+        """Send the VML to the selected option."""
+        if selection == 1:
+            self._list_vehicles()
+        if selection == 2:
+            self._add_vehicles_loop()
+        if selection > 2: 
+            print("\nThese options are coming soon!")
+
         
 
 
