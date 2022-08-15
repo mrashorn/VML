@@ -1,5 +1,5 @@
 # VML main.py - the main loop to run the CLI Vehicle Maintenance Log
-import sys
+import sys, os, json
 from vehicle import Vehicle
 import options
 
@@ -41,12 +41,28 @@ class VehicleMaintenanceLog:
     def _list_vehicles(self):
         """Prints the list of vehicles in the VML to the user."""
         print("\nHere are the current logged vehicles:\n")
-        if len(self.vehicles) == 0:
-            print("You have no vehicles!\n")
 
-        else:
-            for vehicle in self.vehicles:
-                vehicle.print_name()
+        # go get any vehicles from the vehicle_data/ 
+        self._fetch_vehicles()
+
+        for vehicle in self.vehicles:
+            vehicle.print_name()
+
+
+    def _fetch_vehicles(self):
+        """Find all vehicles that are saved in the vehicle_data directory."""
+        if len(os.listdir("vehicle_data/")) < 1:
+            print("No vehicles found in database during fetching.")
+            return
+        for file in os.listdir("vehicle_data/"):
+            load_vehicle_data = json.load(open(f"vehicle_data/{file}", 'r'))
+            print(load_vehicle_data)
+
+            self._add_loaded_vehicle(load_vehicle_data)
+
+
+    def _add_loaded_vehicle(self, vehicle_data):
+        """Add the loaded vehicle file to the active VML session / vehicle list."""
 
 
     def _display_main_menu(self):
