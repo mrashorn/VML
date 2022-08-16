@@ -1,4 +1,6 @@
 import json 
+from maintenance_schedule.schedule_writer import Maintenance_Schedule
+from random import randint
 
 class Vehicle:
     """A class representing any given vehicle."""
@@ -15,6 +17,8 @@ class Vehicle:
             self.model = input("What is the vehicle's model?: ")
             self.year = input("What is the vehicle's year?: ")
             self.miles = int(input("How many miles does this vehicle have?: "))
+            self.unique_id = self._create_unique_id()
+            # self.maintenance_schedule = Maintenance_Schedule()
         else:
             self.__dict__ = loaded_data
             
@@ -27,10 +31,20 @@ class Vehicle:
 
     def save_data(self):
         """Saves the vehicle's data to a json file."""
-        vehicle_file_name = f"{self.year}_{self.make}_{self.model}.json"
+        vehicle_file_name = f"{self.year}_{self.make}_{self.model}_{self.unique_id}.json"
         vehicle_file = open(f"vehicle_data/{vehicle_file_name}", 'w')
         json.dump(self.__dict__, vehicle_file)
         vehicle_file.close()
+
+
+    def _create_unique_id(self):
+        """Creates a random string for the vehicle to ID it."""
+        num_list = []
+        for i in range(6):
+            digit = str(randint(0, 9))
+            num_list.append(digit)
+        return "".join(num_list)
+
 
         
 
