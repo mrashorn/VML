@@ -3,17 +3,21 @@ import json
 class Vehicle:
     """A class representing any given vehicle."""
 
-    def __init__(self):
+    def __init__(self, loaded_data=""):
         """Initialze the vehicle and it's attributes."""
-        self._make_new_vehicle()
+        self._make_new_vehicle(loaded_data)
 
 
-    def _make_new_vehicle(self):
+    def _make_new_vehicle(self, loaded_data):
         """Taking user inputs for new vehicle attributes."""
-        self.make = input("What is the vehicle's make?: ")
-        self.model = input("What is the vehicle's model?: ")
-        self.year = input("What is the vehicle's year?: ")
-        self.miles = int(input("How many miles does this vehicle have?: "))
+        if not loaded_data:
+            self.make = input("What is the vehicle's make?: ")
+            self.model = input("What is the vehicle's model?: ")
+            self.year = input("What is the vehicle's year?: ")
+            self.miles = int(input("How many miles does this vehicle have?: "))
+        else:
+            self.__dict__ = loaded_data
+            
 
 
     def print_name(self):

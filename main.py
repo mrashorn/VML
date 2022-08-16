@@ -16,6 +16,9 @@ class VehicleMaintenanceLog:
 
     def run_vml(self):
         """Main loop of the VML."""
+        # Load existing vehicle data from the start.
+        self._fetch_vehicles()
+
         while True:
             selection = self._display_main_menu()
             self._route_to_next(selection)
@@ -42,9 +45,6 @@ class VehicleMaintenanceLog:
         """Prints the list of vehicles in the VML to the user."""
         print("\nHere are the current logged vehicles:\n")
 
-        # go get any vehicles from the vehicle_data/ 
-        self._fetch_vehicles()
-
         for vehicle in self.vehicles:
             vehicle.print_name()
 
@@ -56,17 +56,20 @@ class VehicleMaintenanceLog:
             return
         for file in os.listdir("vehicle_data/"):
             load_vehicle_data = json.load(open(f"vehicle_data/{file}", 'r'))
-            print(load_vehicle_data)
 
             self._add_loaded_vehicle(load_vehicle_data)
 
 
     def _add_loaded_vehicle(self, vehicle_data):
         """Add the loaded vehicle file to the active VML session / vehicle list."""
+        new_vehicle = Vehicle(vehicle_data)
+        self.vehicles.append(new_vehicle)
 
 
     def _display_main_menu(self):
         """Display the main options for the VML."""
+        print("--------------------------------------------")
+        print("--------------------------------------------")
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
         print("q to quit.")
