@@ -1,6 +1,6 @@
 import json 
-from maintenance_schedule.schedule_writer import Maintenance_Schedule
 from random import randint
+from maintenance_schedule import Maintenance_Schedule
 
 class Vehicle:
     """A class representing any given vehicle."""
@@ -18,7 +18,7 @@ class Vehicle:
             self.year = input("What is the vehicle's year?: ")
             self.miles = int(input("How many miles does this vehicle have?: "))
             self.unique_id = self._create_unique_id()
-            # self.maintenance_schedule = Maintenance_Schedule()
+            self.maintenance_schedule = self._create_maintenance_schedule()
         else:
             self.__dict__ = loaded_data
             
@@ -44,6 +44,12 @@ class Vehicle:
             digit = str(randint(0, 9))
             num_list.append(digit)
         return "".join(num_list)
+
+
+    def _create_maintenance_schedule(self):
+        """Creates the maintenance schedule and returns it as a dict."""
+        maint_schedule = Maintenance_Schedule()
+        return maint_schedule.__dict__
 
 
         
