@@ -51,6 +51,7 @@ class VehicleMaintenanceLog:
 
     def _fetch_vehicles(self):
         """Find all vehicles that are saved in the vehicle_data directory."""
+        self._check_data_directory()
         if len(os.listdir("vehicle_data/")) < 1:
             print("No vehicles found in database during fetching.")
             return
@@ -64,6 +65,14 @@ class VehicleMaintenanceLog:
         """Add the loaded vehicle file to the active VML session / vehicle list."""
         new_vehicle = Vehicle(vehicle_data)
         self.vehicles.append(new_vehicle)
+
+
+    def _check_data_directory(self):
+        """Checks for vehicle_data/ directory. Creates it if it doesn't exist."""
+        if os.path.exists('vehicle_data/'):
+            return
+        else:
+            os.mkdir('vehicle_data/')
 
 
     def _display_main_menu(self):
