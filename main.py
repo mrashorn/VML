@@ -88,20 +88,21 @@ class VehicleMaintenanceLog:
             sys.exit()
         if int(ans) > len(self.main_menu_options):
             print("\nNot a valid selection.\n")
-            return None
+            self._display_main_menu()
             
         return int(ans)
 
 
     def _route_to_next(self, selection):
         """Send the VML to the selected option."""
-        if selection == 1:
+        selection_string = self.main_menu_options[selection - 1]
+        if selection_string == "Display Vehicles":
             self._list_vehicles()
-        if selection == 2:
+        if selection_string == "Add Vehicle":
             self._add_vehicles_loop()
-        if selection == 3:
+        if selection_string == "Get Vehicle Maintenance History":
             self._display_vehicle_maint_schedules()
-        if selection > 3: 
+        else:
             print("\nThese options are coming soon!")
 
         
@@ -119,4 +120,3 @@ if __name__ == '__main__':
     # Run the VML. 
     vml = VehicleMaintenanceLog()
     vml.run_vml()
-    print("OK LEAVING MAIN.")
