@@ -43,7 +43,7 @@ class VehicleMaintenanceLog:
 
     def _list_vehicles(self):
         """Prints the list of vehicles in the VML to the user."""
-        print("\nHere are the current logged vehicles:\n")
+        print("\nHere are the current logged vehicles:")
 
         for vehicle in self.vehicles:
             vehicle.print_name()
@@ -78,7 +78,7 @@ class VehicleMaintenanceLog:
     def _display_main_menu(self):
         """Display the main options for the VML."""
         print("--------------------------------------------")
-        print("--------------------------------------------")
+        print("--------------------------------------------\n\n\n")
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
         print("q to quit.")
@@ -99,10 +99,19 @@ class VehicleMaintenanceLog:
             self._list_vehicles()
         if selection == 2:
             self._add_vehicles_loop()
-        if selection > 2: 
+        if selection == 3:
+            self._display_vehicle_maint_schedules()
+        if selection > 3: 
             print("\nThese options are coming soon!")
 
         
+    def _display_vehicle_maint_schedules(self):
+        """Prompts the user for a vehicle, then displays the maint schedule for that vehicle."""
+        # TO-DO: This is a quick function so I can keep printing the schedule without having to reload vehicles over and over 
+        # during testing / building. 
+        # this needs to be fixed to properly display the vehicle list and prompt the user which one to display the schedule of.
+        for vehicle in self.vehicles:
+            vehicle.display_maintenance_schedule()
 
 
 

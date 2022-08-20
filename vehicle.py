@@ -1,6 +1,7 @@
 import json 
 from random import randint
-from maintenance_schedule import Maintenance_Schedule
+from maintenance_item import Maintenance_Item
+from options import maintenance_options
 
 class Vehicle:
     """A class representing any given vehicle."""
@@ -18,15 +19,18 @@ class Vehicle:
             self.year = input("What is the vehicle's year?: ")
             self.miles = int(input("How many miles does this vehicle have?: "))
             self.unique_id = self._create_unique_id()
-            self.maintenance_schedule = self._create_maintenance_schedule()
+            self.name = f"{self.year} {self.make} {self.model}"
+            self._create_maintenance_schedule()
         else:
             self.__dict__ = loaded_data
+
+        self.display_maintenance_schedule()
             
 
 
     def print_name(self):
         """Prints the vehicles common name."""
-        print(f"{self.year} {self.make} {self.model} with {self.miles} miles.\n")
+        print(f"{self.name} with {self.miles} miles.\n")
 
 
     def save_data(self):
@@ -47,11 +51,23 @@ class Vehicle:
 
 
     def _create_maintenance_schedule(self):
-        """Creates the maintenance schedule and returns it as a dict."""
-        maint_schedule = Maintenance_Schedule()
-        return maint_schedule.__dict__
+        """Creates the maintenance schedule as a dict."""
+        self.maintenance_schedule = {}
+        index = 1
+        for key, value in maintenance_options.items():
+            item = Maintenance_Item(key, value)
+            self.maintenance_schedule[str(index)] = item.__dict__
+            index += 1
+
+        print(self.maintenance_schedule)
 
 
-        
+    def display_maintenance_schedule(self):
+        """Prints the nicely formatted maintenance schedule."""
+        print(f"Maintenance Schedule for: {self.name}")
+        for index, item_dict in self.maintenance_schedule.items():
+            print(index.ljust(4), item_dict['name'].ljust(30), str(item_dict['interval']).ljust(10))
+
+
 
 
