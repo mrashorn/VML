@@ -18,6 +18,7 @@ class VehicleMaintenanceLog:
         """Main loop of the VML."""
         # Load existing vehicle data from the start.
         self._fetch_vehicles()
+        self._clear_screen()
 
         while True:
             selection = self._display_main_menu()
@@ -77,33 +78,39 @@ class VehicleMaintenanceLog:
 
     def _display_main_menu(self):
         """Display the main options for the VML."""
-        print("--------------------------------------------")
-        print("--------------------------------------------\n\n\n")
+        print("\n" * 3)
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
         print("q to quit.")
+        return self._get_menu_selection()
 
+
+    def _get_menu_selection(self):
+        """Get selection input from user."""
         ans = input("\nMake a selection and press Enter: ")
         if ans == 'q':
             sys.exit()
-        if int(ans) > len(self.main_menu_options):
-            print("\nNot a valid selection.\n")
-            self._display_main_menu()
+        while not ans.isnumeric():
+            print("Not a number!")
+            ans = input("\nMake a selection and press Enter: ")
             
         return int(ans)
 
-
     def _route_to_next(self, selection):
         """Send the VML to the selected option."""
+        self._clear_screen()
+        if selection >= len(self.main_menu_options):
+            print("Selection is out of range.\n")
+            return
         selection_string = self.main_menu_options[selection - 1]
         if selection_string == "Display Vehicles":
             self._list_vehicles()
-        if selection_string == "Add Vehicle":
+        elif selection_string == "Add Vehicle":
             self._add_vehicles_loop()
-        if selection_string == "Get Vehicle Maintenance History":
+        elif selection_string == "Get Vehicle Maintenance History":
             self._display_vehicle_maint_schedules()
         else:
-            print("\nThese options are coming soon!")
+            print("\nThis option is coming soon!")
 
         
     def _display_vehicle_maint_schedules(self):
@@ -113,6 +120,11 @@ class VehicleMaintenanceLog:
         # this needs to be fixed to properly display the vehicle list and prompt the user which one to display the schedule of.
         for vehicle in self.vehicles:
             vehicle.display_maintenance_schedule()
+
+
+    def _clear_screen(self):
+        """clear the terminal screen."""
+        os.system('clear')
 
 
 

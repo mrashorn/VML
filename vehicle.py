@@ -24,7 +24,6 @@ class Vehicle:
         else:
             self.__dict__ = loaded_data
 
-        self.display_maintenance_schedule()
             
 
 
