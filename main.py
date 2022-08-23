@@ -88,9 +88,9 @@ class VehicleMaintenanceLog:
     def _get_menu_selection(self):
         """Get selection input from user."""
         ans = input("\nMake a selection and press Enter: ")
-        if ans == 'q':
-            sys.exit()
         while not ans.isnumeric():
+            if ans == 'q':
+                sys.exit()
             print("Not a number!")
             ans = input("\nMake a selection and press Enter: ")
             
