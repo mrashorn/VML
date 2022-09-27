@@ -44,7 +44,7 @@ class VehicleMaintenanceLog:
 
     def _list_vehicles(self):
         """Prints the list of vehicles in the VML to the user."""
-        print("\nHere are the current logged vehicles:")
+        print("Here are the current logged vehicles:")
 
         for vehicle in self.vehicles:
             vehicle.print_name()
@@ -78,7 +78,6 @@ class VehicleMaintenanceLog:
 
     def _display_main_menu(self):
         """Display the main options for the VML."""
-        print("\n" * 3)
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
         print("q to quit.")
@@ -99,7 +98,7 @@ class VehicleMaintenanceLog:
     def _route_to_next(self, selection):
         """Send the VML to the selected option."""
         self._clear_screen()
-        if selection >= len(self.main_menu_options):
+        if selection > len(self.main_menu_options):
             print("Selection is out of range.\n")
             return
         selection_string = self.main_menu_options[selection - 1]

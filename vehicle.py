@@ -55,7 +55,7 @@ class Vehicle:
         self.maintenance_schedule = {}
         index = 1
         for key, value in maintenance_options.items():
-            item = Maintenance_Item(key, value)
+            item = Maintenance_Item(key, value, self.miles)
             self.maintenance_schedule[str(index)] = item.__dict__
             index += 1
 
@@ -91,9 +91,13 @@ class Vehicle:
         self.maintenance_schedule[index]['interval'] = int(new_interval)
         print(f"The {self.maintenance_schedule[index]['name']} interval has been changed to {self.maintenance_schedule[index]['interval']}.\n")
 
- 
-                
 
+    def _enter_new_vehicle_previous_service(self):
+        """User enters the last time these services were completed."""
+        # If the mileage of the interval is larger than the vehicles current mileage, assume last service was 0 miles.
+        print("Now let's enter the most previous time each item was serviced.\n")
+        for index, item_dict in self.maintenance_schedule.items():
+            print(index.ljust(4), item_dict['name'].ljust(30), str(item_dict['interval']).ljust(10))
 
 
 
