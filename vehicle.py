@@ -113,11 +113,10 @@ class Vehicle:
 
     def add_service_to_item(self, user_entry, service_mileage):
         """Add service to the service history of an item."""
-        if service_mileage.isnumeric() and int(service_mileage) < self.miles:
+        if service_mileage.isnumeric() and int(service_mileage) >= 0 and int(service_mileage) < self.miles:
             self.maintenance_schedule[user_entry]['service_history'].append(int(service_mileage))
-            print(f"Added service at {service_mileage} to {self.maintenance_schedule[user_entry]['name']}.")
+            print(f"Added service at {service_mileage} to {self.maintenance_schedule[user_entry]['name']} to {self.name} {self.unique_id}.")
             self.maintenance_schedule[user_entry]['service_history'].sort()
-            self.save_data()
         elif service_mileage == 'q':
             return print("No service was added.")
         else:

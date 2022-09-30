@@ -1,0 +1,125 @@
+{
+    "make": "Ford",
+    "model": "F150",
+    "year": "2016",
+    "miles": 76000,
+    "unique_id": "017906",
+    "name": "2016 Ford F150",
+    "maintenance_schedule": {
+        "1": {
+            "name": "Oil Change",
+            "interval": 5000,
+            "service_history": [
+                1,
+                2,
+                3,
+                123
+            ]
+        },
+        "2": {
+            "name": "Tire Rotation",
+            "interval": 7500,
+            "service_history": [
+                0
+            ]
+        },
+        "3": {
+            "name": "Engine Air Filter",
+            "interval": 30000,
+            "service_history": [
+                0
+            ]
+        },
+        "4": {
+            "name": "Cabin Air Filter",
+            "interval": 30000,
+            "service_history": [
+                0
+            ]
+        },
+        "5": {
+            "name": "Brake Fluid",
+            "interval": 30000,
+            "service_history": [
+                0
+            ]
+        },
+        "6": {
+            "name": "Fuel Filter",
+            "interval": 50000,
+            "service_history": [
+                0
+            ]
+        },
+        "7": {
+            "name": "Brake Pads",
+            "interval": 50000,
+            "service_history": [
+                0
+            ]
+        },
+        "8": {
+            "name": "Brake Rotors",
+            "interval": 60000,
+            "service_history": [
+                0
+            ]
+        },
+        "9": {
+            "name": "Radiator Coolant",
+            "interval": 60000,
+            "service_history": [
+                0
+            ]
+        },
+        "10": {
+            "name": "Transmission Fluid",
+            "interval": 60000,
+            "service_history": [
+                0
+            ]
+        },
+        "11": {
+            "name": "Rear Differential Fluid",
+            "interval": 60000,
+            "service_history": [
+                0
+            ]
+        },
+        "12": {
+            "name": "Battery",
+            "interval": 75000,
+            "service_history": [
+                0
+            ]
+        },
+        "13": {
+            "name": "Power Steering Fluid",
+            "interval": 75000,
+            "service_history": [
+                0
+            ]
+        },
+        "14": {
+            "name": "Hose Inspection",
+            "interval": 90000,
+            "service_history": [
+                0
+            ]
+        },
+        "15": {
+            "name": "Timing Belt",
+            "interval": 90000,
+            "service_history": [
+                0
+            ]
+        },
+        "16": {
+            "name": "Spark Plugs",
+            "interval": 100000,
+            "service_history": [
+                0
+            ]
+        }
+    }
+}
