@@ -67,7 +67,6 @@ class VehicleMaintenanceLog:
         """Add the loaded vehicle file to the active VML session / vehicle list."""
         new_vehicle = Vehicle(vehicle_data)
         self.vehicles.append(new_vehicle)
-        print(new_vehicle.maintenance_schedule)
 
 
     def _check_data_directory(self):

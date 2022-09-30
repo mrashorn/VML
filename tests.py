@@ -38,6 +38,12 @@ class Add_Service_Test_Case(unittest.TestCase):
         vehicle_two.add_service_to_item('1', '-4000')
         self.assertEqual(vehicle_one.maintenance_schedule, vehicle_two.maintenance_schedule)
 
+    def test_vehicle_add_service_non_numeric_mileage(self):
+        """Test negative mileage for service entry."""
+        vehicle_one = Vehicle(vehicle_data_one)
+        vehicle_two = Vehicle(vehicle_data_two)
+        vehicle_two.add_service_to_item('1', 'word')
+        self.assertEqual(vehicle_one.maintenance_schedule, vehicle_two.maintenance_schedule)
         
 
 if __name__ == '__main__':
