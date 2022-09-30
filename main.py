@@ -108,6 +108,8 @@ class VehicleMaintenanceLog:
             self._add_vehicles_loop()
         elif selection_string == "Get Vehicle Maintenance History":
             self._display_vehicle_maint_schedules()
+        elif selection_string == "Add a Completed Service to a Vehicle":
+            self._add_completed_service()
         else:
             print("\nThis option is coming soon!")
 
@@ -119,6 +121,18 @@ class VehicleMaintenanceLog:
         # this needs to be fixed to properly display the vehicle list and prompt the user which one to display the schedule of.
         for vehicle in self.vehicles:
             vehicle.display_maintenance_schedule()
+
+
+    def _add_completed_service(self):
+        """Adds a service to a specific vehicle, for a specific maintenance item."""
+        index = 1
+        for vehicle in self.vehicles:
+            print(f"{index}. " + vehicle.name)
+            index += 1
+        user_entry = input("Select which vehicle to add a service to (1, 2, 3..): ")
+        print("Adding service to " + self.vehicles[int(user_entry)-1].name)
+        self.vehicles[int(user_entry)-1].add_service()
+
 
 
     def _clear_screen(self):
