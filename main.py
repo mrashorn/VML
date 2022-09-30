@@ -131,7 +131,7 @@ class VehicleMaintenanceLog:
             index += 1
         user_entry = input("Select which vehicle to add a service to (1, 2, 3..): ")
         print("Adding service to " + self.vehicles[int(user_entry)-1].name)
-        self.vehicles[int(user_entry)-1].add_service()
+        self.vehicles[int(user_entry)-1].add_service_to_vehicle()
 
 
 

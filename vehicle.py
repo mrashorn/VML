@@ -7,7 +7,7 @@ class Vehicle:
     """A class representing any given vehicle."""
 
     def __init__(self, loaded_data=""):
-        """Initialze the vehicle and it's attributes."""
+        """Initialize the vehicle and it's attributes."""
         self._make_new_vehicle(loaded_data)
 
 
@@ -100,26 +100,27 @@ class Vehicle:
             print(index.ljust(4), item_dict['name'].ljust(30), str(item_dict['interval']).ljust(10))
 
 
-    def add_service(self):
-        """Add service event to a maintenance item."""
+    def add_service_to_vehicle(self):
+        """Add service event to a vehicle's maintenance item."""
         for index, item_dict in self.maintenance_schedule.items():
             print(index.ljust(4), item_dict['name'].ljust(30))
         user_entry = input("Select which item you would like to enter a service for: ")
 
         # check for valid inputs
-        service_mileage = ''
         service_mileage = input(f"What mileage was the {self.maintenance_schedule[user_entry]['name']} service completed?: ")
+        self.add_service_to_item(user_entry, service_mileage) 
+
+
+    def add_service_to_item(self, user_entry, service_mileage):
+        """Add service to the service history of an item."""
         if service_mileage.isnumeric() and int(service_mileage) < self.miles:
             self.maintenance_schedule[user_entry]['service_history'].append(int(service_mileage))
+            print(f"Added service at {service_mileage} to {self.maintenance_schedule[user_entry]['name']}.")
+            self.maintenance_schedule[user_entry]['service_history'].sort()
+            self.save_data()
         elif service_mileage == 'q':
             return print("No service was added.")
         else:
             return print("That is not a valid mileage.")
-
-        print(f"Added service at {service_mileage} to {self.maintenance_schedule[user_entry]['name']}.")
-        self.maintenance_schedule[user_entry]['service_history'].sort()
-
-
-
 
 
