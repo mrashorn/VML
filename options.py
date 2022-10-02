@@ -1,5 +1,14 @@
 # main menu options:
-main_menu_options = [
+
+vehicle_menu_options = [
+        "Get Maintenance History",
+        "Add a Completed Service to a Vehicle",
+        "Find Next Service for a Vehicle",
+        "Delete Vehicle"
+        ]
+
+# Deprecated
+old_main_menu_options = [
         "Display Vehicles", 
         "Add Vehicle",
         "Get Vehicle Maintenance History",

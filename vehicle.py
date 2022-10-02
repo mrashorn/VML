@@ -28,9 +28,9 @@ class Vehicle:
             
 
 
-    def print_name(self):
-        """Prints the vehicles common name."""
-        print(f"{self.name} with {self.miles} miles.\n")
+    def get_name(self):
+        """Returns the vehicles common name."""
+        return(f"{self.name} with {self.miles} miles.")
 
 
     def save_data(self):

@@ -9,20 +9,20 @@ class VehicleMaintenanceLog:
 
     def __init__(self):
         """Initialize the log and load all vehicle data."""
-        print("Welcome to the VML - Vehical Maintenance Log.\n")
         self.vehicles = []
-        self.main_menu_options = options.main_menu_options
+        self.vehicle_menu_options = options.vehicle_menu_options
+        self.selected_vehicle = None
         
 
     def run_vml(self):
         """Main loop of the VML."""
         # Load existing vehicle data from the start.
-        self._clear_screen()
         self._fetch_vehicles()
 
         while True:
             selection = self._display_main_menu()
-            self._route_to_next(selection)
+            self._main_select_vehicle(selection)
+            self._display_vehicle_menu()
             self._save_data()
 
 
@@ -33,6 +33,7 @@ class VehicleMaintenanceLog:
             print("Let's add a vehicle.\n")
             self._add_vehicle()
             ans = input("Do you want to add another vehicle?[y\\n]: ")
+        self._clear_screen()
 
 
     def _add_vehicle(self):
@@ -45,10 +46,10 @@ class VehicleMaintenanceLog:
 
     def _list_vehicles(self):
         """Prints the list of vehicles in the VML to the user."""
-        print("Here are the current logged vehicles:")
-
+        index = 1
         for vehicle in self.vehicles:
-            vehicle.print_name()
+            print(f"{index}. " + vehicle.get_name())
+            index += 1
 
 
     def _fetch_vehicles(self):
@@ -78,6 +79,28 @@ class VehicleMaintenanceLog:
 
 
     def _display_main_menu(self):
+        """Display the first menu, listing vehicles."""
+        self._clear_screen()
+        print("Welcome to the VML! Select a vehicle or add a new vehicle.")
+        self._list_vehicles()
+        print(str(len(self.vehicles)+1) +". Add a new vehicle.")
+        print("q to quit.")
+        return self._get_menu_selection(len(self.vehicles)+1)
+
+
+    def _display_vehicle_menu(self):
+        """Display the menu for the vehicle's options."""
+        for index, option in enumerate(self.vehicle_menu_options):
+            print(index + 1, option)
+        print("q to quit.")
+        selection = self._get_menu_selection(len(self.vehicle_menu_options))
+        print(selection)
+        input("Press any key to continue...")
+
+
+
+    # OLD MAIN MENU, DELETE IF NOT NEEDED 
+    def _display_old_main_menu(self):
         """Display the main options for the VML."""
         for index, option in enumerate(self.main_menu_options):
             print(index + 1, option)
@@ -85,16 +108,34 @@ class VehicleMaintenanceLog:
         return self._get_menu_selection()
 
 
-    def _get_menu_selection(self):
+    def _get_menu_selection(self, max_options):
         """Get selection input from user."""
         ans = input("\nMake a selection and press Enter: ")
         while not ans.isnumeric():
             if ans == 'q':
                 sys.exit()
             print("Not a number!")
-            ans = input("\nMake a selection and press Enter: ")
+            ans = self._get_menu_selection(max_options)
+        while int(ans) > max_options:
+            print("Selection is too high!")
+            ans = self._get_menu_selection(max_options)
             
-        return int(ans)
+        return ans
+
+
+    def _main_select_vehicle(self, selection):
+        """Handle the selected option / vehicle from the main menu."""
+        self._clear_screen()
+        if int(selection) <= len(self.vehicles):
+            self.selected_vehicle = self.vehicles[int(selection)-1]
+            print(self.selected_vehicle.get_name() + " has been selected.")
+        elif int(selection) == (len(self.vehicles)+1):
+            self._add_vehicles_loop()
+        else:
+            print("In the last else loop of _main_selection_vehciles.")
+            input("Press any key to continue!")
+
+
 
     def _route_to_next(self, selection):
         """Send the VML to the selected option."""
