@@ -4,6 +4,7 @@
 import unittest
 import json
 from vehicle import Vehicle
+from main import VehicleMaintenanceLog 
 
 
 vehicle_data_one = json.load(open("test_data/test_F150_data.json", 'r'))
@@ -46,9 +47,35 @@ class Add_Service_Test_Case(unittest.TestCase):
         self.assertEqual(vehicle_one.maintenance_schedule, vehicle_two.maintenance_schedule)
 
 
- 
- # Can add tests to main._get_menu_selection
+class Get_Menu_Selection_Test_Case(unittest.TestCase):
+    """Tests for main._get_menu_selection()."""
+
+    def test_selection_within_range(self):
+        """Test to check if number passed as str within menu range gives selection."""
+        log = VehicleMaintenanceLog()
+        ans = log._get_menu_selection(3, '1') 
+        self.assertEqual('1', ans)
         
+    def test_selection_too_high(self):
+        """Test to check if number passed as str outside menu range gives error."""
+        log = VehicleMaintenanceLog()
+        ans = log._get_menu_selection(3, '5')
+        self.assertEqual(ans, "Selection is too high!")
+ 
+    def test_selection_not_a_number(self):
+        """Test to check if non-numerical string throws proper error."""
+        log = VehicleMaintenanceLog()
+        ans = log._get_menu_selection(3, 'dfjkjasdfad')
+        self.assertEqual(ans, "Not a number!")
+    
+    def test_for_quit_input(self):
+        """Test for sys.exit() if q is given to quit."""
+        log = VehicleMaintenanceLog()
+        try:
+            ans = log._get_menu_selection(3, 'q')
+            assert False
+        except SystemExit:
+            assert True
 
 if __name__ == '__main__':
     unittest.main()

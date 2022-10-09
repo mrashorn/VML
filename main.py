@@ -85,7 +85,7 @@ class VehicleMaintenanceLog:
         self._list_vehicles()
         print(str(len(self.vehicles)+1) +". Add a new vehicle.")
         print("q to quit.")
-        return self._get_menu_selection(len(self.vehicles)+1)
+        return self._get_selection_loop(len(self.vehicles)+1)
 
 
     def _display_vehicle_menu(self):
@@ -93,32 +93,30 @@ class VehicleMaintenanceLog:
         for index, option in enumerate(self.vehicle_menu_options):
             print(index + 1, option)
         print("q to quit.")
-        selection = self._get_menu_selection(len(self.vehicle_menu_options))
+        selection = self._get_selection_loop(len(self.vehicle_menu_options))
         print(selection)
         input("Press any key to continue...")
 
+    def _get_selection_loop(self, max_options):
+        """Loop that manages inputs and handles outputs of menu selections."""
+        ans = self._get_menu_selection(max_options)
 
+        while ans == "Not a number!" or ans == "Selection is too high!":
+            print("Not a valid input!")
+            ans = self._get_menu_selection(max_options)
 
-    # OLD MAIN MENU, DELETE IF NOT NEEDED 
-    def _display_old_main_menu(self):
-        """Display the main options for the VML."""
-        for index, option in enumerate(self.main_menu_options):
-            print(index + 1, option)
-        print("q to quit.")
-        return self._get_menu_selection()
+        return ans
 
-
-    def _get_menu_selection(self, max_options):
-        """Get selection input from user."""
-        ans = input("\nMake a selection and press Enter: ")
+    def _get_menu_selection(self, max_options, ans=''):
+        """Get a numerical selection input from user that is within menu range."""
+        if not ans:
+            ans = input("\nMake a selection and press Enter: ")
         while not ans.isnumeric():
             if ans == 'q':
                 sys.exit()
-            print("Not a number!")
-            ans = self._get_menu_selection(max_options)
+            return "Not a number!"
         while int(ans) > max_options:
-            print("Selection is too high!")
-            ans = self._get_menu_selection(max_options)
+            return "Selection is too high!"
             
         return ans
 
