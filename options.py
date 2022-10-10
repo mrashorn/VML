@@ -4,7 +4,8 @@ vehicle_menu_options = [
         "Get Maintenance History",
         "Add a Completed Service to Vehicle",
         "Find Next Service for Vehicle",
-        "Delete Vehicle"
+        "Delete Vehicle",
+        "Back to Main Menu"
         ]
 
 # Deprecated

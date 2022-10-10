@@ -147,6 +147,8 @@ class VehicleMaintenanceLog:
             print("Find next service.")
         elif selection_string == "Delete Vehicle":
             self._delete_vehicle()
+        elif selection_string == "Back to Main Menu":
+            print("Returning to Main Menu")
         else:
             print("Not an option!")
         input("Press any key to continue...")
