@@ -94,8 +94,8 @@ class VehicleMaintenanceLog:
             print(index + 1, option)
         print("q to quit.")
         selection = self._get_selection_loop(len(self.vehicle_menu_options))
-        print(selection)
-        input("Press any key to continue...")
+        self._vehicle_menu_route_to_next(int(selection))
+
 
     def _get_selection_loop(self, max_options):
         """Loop that manages inputs and handles outputs of menu selections."""
@@ -131,8 +131,25 @@ class VehicleMaintenanceLog:
             self._add_vehicles_loop()
         else:
             print("In the last else loop of _main_selection_vehciles.")
-            input("Press any key to continue!")
+            input("Press any key to continue...")
 
+
+
+    def _vehicle_menu_route_to_next(self, selection):
+        """Route the VML to the selection the user made at the vehicle option menu."""
+        self._clear_screen()
+        selection_string = self.vehicle_menu_options[selection - 1]
+        if selection_string == "Get Maintenance History":
+            self.selected_vehicle.display_maintenance_schedule()
+        elif selection_string == "Add a Completed Service to Vehicle":
+            self.selected_vehicle.add_service_to_vehicle()
+        elif selection_string == "Find Next Service for Vehicle":
+            print("Find next service.")
+        elif selection_string == "Delete Vehicle":
+            self._delete_vehicle()
+        else:
+            print("Not an option!")
+        input("Press any key to continue...")
 
 
     def _route_to_next(self, selection):
@@ -153,26 +170,21 @@ class VehicleMaintenanceLog:
         else:
             print("\nThis option is coming soon!")
 
-        
-    def _display_vehicle_maint_schedules(self):
-        """Prompts the user for a vehicle, then displays the maint schedule for that vehicle."""
-        # TO-DO: This is a quick function so I can keep printing the schedule without having to reload vehicles over and over 
-        # during testing / building. 
-        # this needs to be fixed to properly display the vehicle list and prompt the user which one to display the schedule of.
+    def _delete_vehicle(self):
+        """Deletes the selected vehicle from the VML."""
+        # Delete the .json file for the vehicle
+        for file in os.listdir("vehicle_data/"):
+            if self.selected_vehicle.unique_id in file:
+                print(f"Deleting {file}...")
+                os.remove(f"vehicle_data/{file}")
+        # delete the vehicle from the list of self.vehicles
         for vehicle in self.vehicles:
-            vehicle.display_maintenance_schedule()
-
-
-    def _add_completed_service(self):
-        """Adds a service to a specific vehicle, for a specific maintenance item."""
-        index = 1
-        for vehicle in self.vehicles:
-            print(f"{index}. " + vehicle.name)
-            index += 1
-        user_entry = input("Select which vehicle to add a service to (1, 2, 3..): ")
-        print("Adding service to " + self.vehicles[int(user_entry)-1].name)
-        self.vehicles[int(user_entry)-1].add_service_to_vehicle()
-
+            if self.selected_vehicle.unique_id == vehicle.unique_id:
+                print(f"Deleting {vehicle.get_name()} from vml.")
+        self.vehicles[:] = [vehicle for vehicle in self.vehicles if vehicle.unique_id != self.selected_vehicle.unique_id]
+        # clear self.selected_vehicle 
+        self.selected_vehicle = None
+        # return to Main Menu
 
 
     def _clear_screen(self):
