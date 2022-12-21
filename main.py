@@ -34,6 +34,7 @@ class VehicleMaintenanceLog:
             self._add_vehicle()
             ans = input("Do you want to add another vehicle?[y\\n]: ")
         self._clear_screen()
+        self._save_data()
 
 
     def _add_vehicle(self):
@@ -42,6 +43,7 @@ class VehicleMaintenanceLog:
         print(f"Added the {new_vehicle.make} {new_vehicle.model}.")
         new_vehicle.save_data()
         self.vehicles.append(new_vehicle)
+        self.selected_vehicle = new_vehicle
 
 
     def _list_vehicles(self):
@@ -153,24 +155,6 @@ class VehicleMaintenanceLog:
             print("Not an option!")
         input("Press any key to continue...")
 
-
-    def _route_to_next(self, selection):
-        """Send the VML to the selected option."""
-        self._clear_screen()
-        if selection > len(self.main_menu_options):
-            print("Selection is out of range.\n")
-            return
-        selection_string = self.main_menu_options[selection - 1]
-        if selection_string == "Display Vehicles":
-            self._list_vehicles()
-        elif selection_string == "Add Vehicle":
-            self._add_vehicles_loop()
-        elif selection_string == "Get Vehicle Maintenance History":
-            self._display_vehicle_maint_schedules()
-        elif selection_string == "Add a Completed Service to a Vehicle":
-            self._add_completed_service()
-        else:
-            print("\nThis option is coming soon!")
 
     def _delete_vehicle(self):
         """Deletes the selected vehicle from the VML."""

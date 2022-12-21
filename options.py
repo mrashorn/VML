@@ -8,14 +8,6 @@ vehicle_menu_options = [
         "Back to Main Menu"
         ]
 
-# Deprecated
-old_main_menu_options = [
-        "Display Vehicles", 
-        "Add Vehicle",
-        "Get Vehicle Maintenance History",
-        "Find Next Service for a Vehicle",
-        "Add a Completed Service to a Vehicle"
-        ]
 
 maintenance_options = {
         "Oil Change" : 5000,
@@ -35,3 +27,13 @@ maintenance_options = {
         "Timing Belt" : 90000,
         "Spark Plugs" : 100000,
         }
+
+
+# Deprecated
+old_main_menu_options = [
+        "Display Vehicles", 
+        "Add Vehicle",
+        "Get Vehicle Maintenance History",
+        "Find Next Service for a Vehicle",
+        "Add a Completed Service to a Vehicle"
+        ]

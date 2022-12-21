@@ -16,8 +16,28 @@ class Vehicle:
         if not loaded_data:
             self.make = input("What is the vehicle's make?: ")
             self.model = input("What is the vehicle's model?: ")
-            self.year = input("What is the vehicle's year?: ")
-            self.miles = int(input("How many miles does this vehicle have?: "))
+
+            while True:
+                self.year = input("What is the vehicle's year?: ")
+                if not self.year.isnumeric():
+                    print("Invalid year.")
+                    continue
+                if int(self.year) > 1850:
+                    break
+                else:
+                    print("Invalid year.")
+
+            while True:
+                self.miles = input("How many miles does this vehicle have?: ")
+                if not self.miles.isnumeric():
+                    print("Invalid mileage.")
+                    continue
+                if int(self.miles) >= 0:
+                    self.miles = int(self.miles)
+                    break
+                else:
+                    print("Invalid mileage.")
+
             self.unique_id = self._create_unique_id()
             self.name = f"{self.year} {self.make} {self.model}"
             self._create_maintenance_schedule()
@@ -87,7 +107,15 @@ class Vehicle:
 
     def _change_maintenance_item_interval(self, index):
         """Change the service interval for a maintenance item."""
-        new_interval = input(f"Change the interval for {self.maintenance_schedule[index]['name']} from {str(self.maintenance_schedule[index]['interval'])} to: ")
+        while True:
+            new_interval = input(f"Change the interval for {self.maintenance_schedule[index]['name']} from {str(self.maintenance_schedule[index]['interval'])} to: ")
+            if not new_interval.isnumeric():
+                print("Invalid interval.")
+                continue
+            if int(new_interval) > 0:
+                break
+            else:
+                print("Invalid interval.")
         self.maintenance_schedule[index]['interval'] = int(new_interval)
         print(f"The {self.maintenance_schedule[index]['name']} interval has been changed to {self.maintenance_schedule[index]['interval']}.\n")
 

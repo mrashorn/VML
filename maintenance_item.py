@@ -16,7 +16,7 @@ class Maintenance_Item:
         user_entry = ''
         while user_entry != 'q':
             user_entry = input(f"Enter the mileage for each {self.name} service that has been completed (q to continue): ")
-            if user_entry.isnumeric() and int(user_entry) < current_mileage:
+            if user_entry.isnumeric() and int(user_entry) < current_mileage and int(user_entry) >= 0:
                 self.service_history.append(int(user_entry))
             elif user_entry == 'q':
                 break
