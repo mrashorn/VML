@@ -4,8 +4,9 @@ vehicle_menu_options = [
         "Get Maintenance History",
         "Add a Completed Service to Vehicle",
         "Find Next Service for Vehicle",
+        "View Maintenance Schedule",
         "Delete Vehicle",
-        "Back to Main Menu"
+        "Back to Main Menu",
         ]
 
 

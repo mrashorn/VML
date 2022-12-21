@@ -161,11 +161,13 @@ class VehicleMaintenanceLog:
         self._clear_screen()
         selection_string = self.vehicle_menu_options[selection - 1]
         if selection_string == "Get Maintenance History":
-            self.selected_vehicle.display_maintenance_schedule()
+            self.selected_vehicle.display_maintenance_history()
         elif selection_string == "Add a Completed Service to Vehicle":
             self.selected_vehicle.add_service_to_vehicle()
         elif selection_string == "Find Next Service for Vehicle":
             print("Find next service.")
+        elif selection_string == "View Maintenance Schedule":
+            self.selected_vehicle.display_maintenance_schedule()
         elif selection_string == "Delete Vehicle":
             self._delete_vehicle()
         elif selection_string == "Back to Main Menu":

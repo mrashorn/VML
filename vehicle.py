@@ -86,6 +86,16 @@ class Vehicle:
             index += 1
 
 
+    def display_maintenance_history(self):
+        """Displays the historic maintenance of a vehicle."""
+        print("Maintenance history is shown here!")
+        for item_dict in self.maintenance_schedule.values():
+            print(item_dict['name'].ljust(30))
+            for service_entry in item_dict['service_history']:
+                print(str(service_entry), "miles")
+            print()
+
+
     def display_maintenance_schedule(self):
         """Prints the nicely formatted maintenance schedule."""
         print(f"Maintenance Schedule for: {self.name}")
