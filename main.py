@@ -40,11 +40,30 @@ class VehicleMaintenanceLog:
     def _add_vehicle(self):
         """Add a new vehicle to the VML."""
         new_vehicle = Vehicle()
-        print(f"Added the {new_vehicle.make} {new_vehicle.model}.")
-        new_vehicle.save_data()
-        self.vehicles.append(new_vehicle)
-        self.selected_vehicle = new_vehicle
+        same_vehicle = self._check_if_vehicle_exists(new_vehicle)
+        if not same_vehicle:
+            print(f"Added the {new_vehicle.make} {new_vehicle.model}.")
+            new_vehicle.save_data()
+            self.vehicles.append(new_vehicle)
+            self.selected_vehicle = new_vehicle
+        else:
+            print("Vehicle was not added to VML.")
 
+
+    def _check_if_vehicle_exists(self, new_vehicle):
+        for vehicle in self.vehicles:
+            if (new_vehicle.make == vehicle.make and new_vehicle.model == vehicle.model
+                and new_vehicle.year == vehicle.year):
+                print("This vehicle may already exist in the VML.")
+                print(vehicle.get_name())
+                while True:
+                    same_response = input("Is this the same vehicle that you are currently adding? (y/n)")
+                    if same_response == 'y':
+                        return True
+                    if same_response == 'n':
+                        return False
+                    else:
+                        continue
 
     def _list_vehicles(self):
         """Prints the list of vehicles in the VML to the user."""

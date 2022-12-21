@@ -4,12 +4,15 @@ from options import maintenance_options
 class Maintenance_Item:
     """A class representing each individual maintenance item."""
 
-    def __init__(self, name, interval, current_mileage):
+    def __init__(self, name, interval, current_mileage, skip_response):
         """Initialize the maintenance item."""
         self.name = name
         self.interval = interval
         self.service_history = []
-        self._get_service_history(current_mileage)
+        if skip_response == 'n':
+            self._get_service_history(current_mileage)
+        else:
+            self._skip_service_history()
 
     def _get_service_history(self, current_mileage):
         """Get the service history for this service item, or assume 0 if above below interval."""
@@ -26,5 +29,10 @@ class Maintenance_Item:
             self.service_history.append(0)
 
         self.service_history.sort()
+
+    def _skip_service_history(self):
+        """User elects to skip entering all previous services. 
+        Auto fill services with 0 miles."""
+        self.service_history.append(0)
 
 

@@ -74,8 +74,14 @@ class Vehicle:
         """Creates the maintenance schedule as a dict."""
         self.maintenance_schedule = {}
         index = 1
+        while True:
+            skip_response = input("Do you want to skip inputting all previous services? [y/n]")
+            if skip_response == 'n' or skip_response == 'y':
+                break
+            else:
+                print("Not a valid response.")
         for key, value in maintenance_options.items():
-            item = Maintenance_Item(key, value, self.miles)
+            item = Maintenance_Item(key, value, self.miles, skip_response)
             self.maintenance_schedule[str(index)] = item.__dict__
             index += 1
 
